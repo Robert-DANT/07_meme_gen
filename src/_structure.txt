@@ -1,0 +1,13 @@
+index.js
+    -APP.js
+          -Top Bar :: CSS Needed
+          -Meme Component
+                    :UseStates
+                        1) Loading State
+                        2) Current Image
+                        3) Array from API
+                        4) Upper Text
+                        5) Bottom Text
+           ---------Image Display Component (Dumb Component)
+          -Bottom Bar (About Us / Copyright?)  
+
