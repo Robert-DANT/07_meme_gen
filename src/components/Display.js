@@ -1,53 +1,62 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../App.css';
 import Draggable from 'react-draggable';
 import FontSizeChanger from 'react-font-size-changer';
+import FileUpload from './FileUpload'
+import domtoimage from 'dom-to-image'
+
 // https://www.npmjs.com/package/react-font-size-changer
 
-const Display = ({images}) => {
+const Display = ({ images }) => {
 
+    const [newImage, setNewImage] = useState(0);
+    const [topLine, setTopLine] = useState('');
+    const [bottomLine, setBottomLine] = useState('');
+    const [file, setFile] = useState(null)
+    const imageToFile = useRef()
+
+    
     let Draggable = require('react-draggable');
     let DraggableCore = Draggable.DraggableCore;
     
-    const [newImage, setNewImage] = useState(0);
-    const [topLine, setTopLine] = useState('');
-    const [bottomLine, setBottomLine] = useState(''); 
 
-    // Image Uploading Input Start
-    const [picture, setPicture] = useState(null);
-    const [imgData, setImgData] = useState(null);
-  
-    const onChangePicture = e => {
-      if (e.target.files[0]) {
-        console.log("picture: ", e.target.files);
-        setPicture(e.target.files[0]);
-        const reader = new FileReader();
-        reader.addEventListener("load", () => {
-          setImgData(reader.result);
-        });
-        reader.readAsDataURL(e.target.files[0]);
-      } 
-    };
-    // Image Uploading Input End
-
-    const randomImage = (e) => {
+    const randomImage = () => {
         setNewImage(Math.floor(Math.random() * 100))
     }
-    
+
     const handleInputTop = (e) => {
-         setTopLine(e.target.value)
-     }
+        setTopLine(e.target.value)
+    }
 
     const handleInputBottom = (e) => {
         setBottomLine(e.target.value)
     }
 
+    const downloadPng = () => {
+
+        domtoimage.toJpeg(imageToFile.current, { quality: 0.95 }).then(function (dataUrl) {
+            const link = document.createElement('a');
+            link.download = 'awesome_meme.jpg';
+            link.href = dataUrl;
+            link.click();
+            // Do something with the dataURL (data:image/jpeg;base64,i........)
+        });
+        // domtoimage.toBlob(imageToFile.current).then(function (blob) {
+        //     window.saveAs(blob, 'awesome_meme.png');
+        // });
+    }
+
 
     useEffect(
-        () => randomImage(), []
+        () => {
+            randomImage()
+            return URL.revokeObjectURL(file)
+        }, [file]
     )
-    
-    return(
+
+    console.log(file)
+
+    return (
         <>
 
        
@@ -100,56 +109,36 @@ const Display = ({images}) => {
                             }}  />
         </p>
         
-        <button onClick = {randomImage} className="button">Click for New Meme </button> 
-        <br />
-            
-        <p>
-   
-        {/* <div class="overlay-image">
-             <img src={images[newImage].url} className="img_resize image"/>   
-            
-            <div class="text">
-            <p className="font">{topLine}</p>
-            <p className="font">{bottomLine}</p>  
-            </div>
-        </div> */}
-
-       {/* Image Uploading Input Start */}
-                <div className="register_wrapper">
-                <div className="register_player_column_layout_one">
 
 
-                        <div className="register_profile_image">
-                            <input id="profilePic" type="file" onChange={onChangePicture} />
-                        </div>
-                        <div className="previewProfilePic">
-                            <img className="playerProfilePic_home_tile" src={imgData} />
-                        </div>
+            <button onClick={randomImage} className="button">Click for New Meme </button>
+            <FileUpload setFile={setFile} file={file} />
+            <button onClick={downloadPng}>Download</button>
+            <br />
 
-                </div>
-                </div> 
-                
-       {/* Image Uploading Input End */}
-     <div className="container">
+            <p>
 
-                <div id="target">
-                    <Draggable> 
-                    <p className="font top_text content">{topLine}</p>
-                    </Draggable>
+
+
+                <div ref={imageToFile} className="container">
+                            <div id="target">
+                                <Draggable> 
+                                <p className="font top_text content">{topLine}</p>
+                                </Draggable> 
+                            </div>
+                    {!file ? <img src={images[newImage].url} className="img_resize" /> :
+                        <img src={URL.createObjectURL(file)} className="img_resize" />}
+                            <div id="targetbottom">
+                          
+                                <Draggable> 
+                                <p className="font bottom_text contentbottom">{bottomLine}</p>
+                                </Draggable>
+                            </div>
                 </div>
 
-            <img src={images[newImage].url} className="img_resize" />          
+            </p>
 
 
-            <div id="targetbottom">
-                    <Draggable> 
-                    <p className="font bottom_text contentbottom">{bottomLine}</p>
-                    </Draggable>
-                </div>
-        </div> 
-
-        </p>
-        
         </>
     )
 }
