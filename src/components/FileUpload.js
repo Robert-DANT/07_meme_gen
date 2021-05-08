@@ -24,11 +24,12 @@ const FileUpload = ({ file, setFile }) => {
     return (
         <>
             <div>
-                <p>Drag and drop</p>
+{/*                 <p>Drag and drop</p> */}
                 {/* <button type='button' onClick={handleUpload}>Upload</button> */}
-                <input type='file' title='' value='' onChange={handleUploadField} />
-            </div>
+                <input type='file' title='Hello' value='' onChange={handleUploadField} />
+
             <button type='button' onClick={handleRemove}>Remove File</button>
+            </div>
         </>
     )
 }

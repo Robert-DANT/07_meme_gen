@@ -1,9 +1,10 @@
 import React from 'react';
+import './AboutUs';
 
 const Footer = () =>{
     return(
         <div className= "footerStyle" >
-        <h1>Footer </h1>
+        <h1><a href="#" target="_blank">About US</a></h1>
         </div>
     )
 }
