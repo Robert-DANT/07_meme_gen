@@ -1,61 +1,78 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../App.css';
-import Draggable from 'react-draggable';
+import FileUpload from './FileUpload'
+import domtoimage from 'dom-to-image'
 
-const Display = ({images}) => {
-    
+const Display = ({ images }) => {
+
     const [newImage, setNewImage] = useState(0);
     const [topLine, setTopLine] = useState('');
-    const [bottomLine, setBottomLine] = useState(''); 
-    
-    const randomImage = (e) => {
+    const [bottomLine, setBottomLine] = useState('');
+    const [file, setFile] = useState(null)
+    const imageToFile = useRef()
+
+    const randomImage = () => {
         setNewImage(Math.floor(Math.random() * 100))
     }
-    
+
     const handleInputTop = (e) => {
-         setTopLine(e.target.value)
-     }
+        setTopLine(e.target.value)
+    }
 
     const handleInputBottom = (e) => {
         setBottomLine(e.target.value)
     }
 
+    const downloadPng = () => {
+
+        domtoimage.toJpeg(imageToFile.current, { quality: 0.95 }).then(function (dataUrl) {
+            const link = document.createElement('a');
+            link.download = 'awesome_meme.jpeg';
+            link.href = dataUrl;
+            link.click();
+            // Do something with the dataURL (data:image/jpeg;base64,i........)
+        });
+        // domtoimage.toBlob(imageToFile.current).then(function (blob) {
+        //     window.saveAs(blob, 'awesome_meme.png');
+        // });
+    }
+
 
     useEffect(
-        () => randomImage(), []
+        () => {
+            randomImage()
+            return URL.revokeObjectURL(file)
+        }, [file]
     )
-    
-    return(
+
+    console.log(file)
+
+    return (
         <>
 
-{/*         <Draggable > </Draggable> */}
-        <p>
-        <input type="text" onChange={handleInputTop} placeholder="Enter your Top Line" />
-        <input type="text" onChange={handleInputBottom} placeholder="Enter your Bottom Line" />
-        </p>
-        
-        <button onClick = {randomImage}>Click for New Meme </button> 
-        <br />
+            <p>
+                <input type="text" onChange={handleInputTop} placeholder="Enter your Top Line" />
+                <input type="text" onChange={handleInputBottom} placeholder="Enter your Bottom Line" />
+            </p>
 
-        <p>
-   
-        {/* <div class="overlay-image">
-             <img src={images[newImage].url} className="img_resize image"/>   
-            
-            <div class="text">
-            <p className="font">{topLine}</p>
-            <p className="font">{bottomLine}</p>  
-            </div>
-        </div> */}
-   
-     <div className="container">
-            <p className="font top_text">{topLine}</p>
-            <img src={images[newImage].url} className="img_resize" />          
-            <p className="font bottom_text">{bottomLine}</p>  
-        </div> 
+            <button onClick={randomImage}>Click for New Meme </button>
+            <button onClick={downloadPng}>Download</button>
+            <br />
 
-        </p>
-        
+            <p>
+
+
+
+                <div ref={imageToFile} className="container">
+                    <p className="font top_text">{topLine}</p>
+                    {!file ? <img src={images[newImage].url} className="img_resize" /> :
+                        <img src={URL.createObjectURL(file)} className="img_resize" />}
+                    <p className="font bottom_text">{bottomLine}</p>
+                </div>
+
+            </p>
+            <FileUpload setFile={setFile} file={file} />
+
         </>
     )
 }
