@@ -34,16 +34,16 @@ const Display = ({ images }) => {
 
     const downloadPng = () => {
 
-        domtoimage.toJpeg(imageToFile.current, { quality: 0.95 }).then(function (dataUrl) {
+        domtoimage.toPng(imageToFile.current, { quality: 0.95 }).then(function (dataUrl) {
             const link = document.createElement('a');
-            link.download = 'awesome_meme.jpg';
+            link.download = 'awesome_meme.png';
             link.href = dataUrl;
             link.click();
             // Do something with the dataURL (data:image/jpeg;base64,i........)
         });
-        // domtoimage.toBlob(imageToFile.current).then(function (blob) {
-        //     window.saveAs(blob, 'awesome_meme.png');
-        // });
+            // domtoimage.toBlob(imageToFile.current).then(function (blob) {
+            //     window.saveAs(blob, 'awesome_meme.png');
+            // });
     }
 
 
