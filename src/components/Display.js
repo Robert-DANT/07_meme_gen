@@ -34,7 +34,7 @@ const Display = ({images}) => {
         <input type="text" onChange={handleInputBottom} placeholder="Enter your Bottom Line" />
         </p>
         
-        <button onClick = {randomImage}>Click for New Meme </button> 
+        <button onClick = {randomImage}>Click for New Meme </button>
         <br />
 
         <p>
@@ -53,7 +53,9 @@ const Display = ({images}) => {
             <img src={images[newImage].url} className="img_resize" />          
             <p className="font bottom_text">{bottomLine}</p>  
         </div> 
-
+            <div >
+            <input type={"file"} id={"Image"} multiple />
+            </div>
         </p>
         
         </>

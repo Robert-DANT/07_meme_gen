@@ -42,9 +42,12 @@
 /* Predefined CSS Styles from React App Build ABOVE*/
 
 .img_resize {
-  max-width: 500px;
 
+  max-width: 500px;
   z-index: 1;
+  display: block;
+  top: 50px;
+  bottom: 50px;
 }
 
 .title {
@@ -55,6 +58,7 @@
   -webkit-text-stroke:1px black;
 /*   position: absolute;
   text-align: center; */
+  margin: 0 auto;
 }
 
 .font {
@@ -72,7 +76,6 @@
   top: -80px;
   width: 100%;
   text-align: center;
-  
 }
 
 .bottom_text {
@@ -105,16 +108,15 @@
 
 .footerStyle{
 
+  position: sticky;
+  display: block;
   bottom: 0px;
-  left: 0px;
-  right: 0px;
-  margin-bottom: 0px;
-  justify-content: space-between;
+  flex: flex-wrap;
   align-items: center;
   background-color: rgb(0, 146, 110);
-  height: 1.5rem;
-  padding: 0px 1em;
-  position: fixed;
+  height: 3.5rem;
+  padding: 0px 5em;
+  margin-top: 800px;
 }
 
 body {
@@ -131,6 +133,9 @@ body {
 
 /* Original image */
 .overlay-image .image {
+  background-image: url("https://c4.wallpaperflare.com/wallpaper/512/935/788/memes-windows-xp-boomer-hd-wallpaper-preview.jpg");
+  background-size: cover;
+  background-position: center;
   display: block;
   width: 100%;
   height: auto;
@@ -148,4 +153,18 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
+}
+
+/* CSS Styles for 2 Text Inputs*/
+input:focus, input:hover {
+  background-color: rgb(121, 165, 159);
+}
+
+input{
+  border-style: inset;
+  height: 20px;
+  width: 200px;
+  justify-items: normal;
+  border: 3px solid rgb(182, 204, 185);
+
 }
