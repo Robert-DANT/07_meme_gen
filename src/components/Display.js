@@ -66,7 +66,7 @@ const Display = ({ images }) => {
 
        <div>
             <div className="inline_buttons">
-              <input type="text" onChange={handleInputTop} placeholder="Enter the Top Line" />
+              <input type="text" onChange={handleInputTop} placeholder="Enter a Top Line" />
                     <p>                        
                     <FontSizeChanger
                                     targets={['#target .content']}
@@ -92,7 +92,7 @@ const Display = ({ images }) => {
                     </p>
              </div>
             <div className="inline_buttons">
-            <input type="text" onChange={handleInputMiddle} placeholder="Enter the Middle Line" />
+            <input type="text" onChange={handleInputMiddle} placeholder="Enter a Middle Line" />
                     <p>
                         <FontSizeChanger
                                         targets={['#targetmiddle .contentmiddle']}
@@ -119,7 +119,7 @@ const Display = ({ images }) => {
             
             </div>
             <div className="inline_buttons">
-            <input type="text" onChange={handleInputBottom} placeholder="Enter the Bottom Line" />
+            <input type="text" onChange={handleInputBottom} placeholder="Enter a Bottom Line" />
                     <p>
                     <FontSizeChanger
                                     targets={['#targetbottom .contentbottom']}
@@ -146,7 +146,7 @@ const Display = ({ images }) => {
             </div>
        </div>
 
-        <div>
+        <div className="less_space">
                 <div className="inline_buttons">
                 <button onClick={randomImage} className="button">Click for New Meme </button>
 
