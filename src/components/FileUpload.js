@@ -25,7 +25,7 @@ const FileUpload = ({ file, setFile }) => {
         <>
             <div>
                 <button type='button' onClick={handleUploadBtn}>Upload File</button>
-                <input type='file' title='Hello' value='' onChange={handleUploadField} style={{ display: "none" }} />
+                <input type='file' ref={fileInput} title='' value='' onChange={handleUploadField} style={{ display: "none" }} />
 
 
                 <button type='button' onClick={handleRemove}>Remove File</button>
