@@ -1,13 +1,13 @@
-//import React, { useRef } from 'react';
+import React, { useRef } from 'react';
 
 const FileUpload = ({ file, setFile }) => {
-    // const fileInput = useRef(null)
+    const fileInput = useRef(null)
 
 
 
-    // const handleUploadBtn = () => {
-    //     fileInput.current.click()
-    // }
+    const handleUploadBtn = () => {
+        fileInput.current.click()
+    }
 
     const handleUploadField = (e) => {
         // if (e.target.files[0].size <= 500000 && e.target.files[0].type === "image") {
@@ -24,11 +24,11 @@ const FileUpload = ({ file, setFile }) => {
     return (
         <>
             <div>
-{/*                 <p>Drag and drop</p> */}
-                {/* <button type='button' onClick={handleUpload}>Upload</button> */}
-                <input type='file' title='Hello' value='' onChange={handleUploadField} />
+                <button type='button' onClick={handleUploadBtn}>Upload File</button>
+                <input type='file' title='Hello' value='' onChange={handleUploadField} style={{ display: "none" }} />
 
-            <button type='button' onClick={handleRemove}>Remove File</button>
+
+                <button type='button' onClick={handleRemove}>Remove File</button>
             </div>
         </>
     )
